@@ -4,8 +4,8 @@ import React, { useState } from 'react';
 import HomePage from '../app/components/HomePage';
 import ChatBotPage from './components/ChatBotPage';
 import ExpertMatchingPage from './components/expertMatching';
-import SwarmRoomPage from './components/SwarmRoom';
-
+// import SwarmRoomPage from './components/SwarmRoom';
+import SwarmRoomPage from './components/createroom'
 export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
 
@@ -18,7 +18,7 @@ export default function App() {
       case 'experts':
         return <ExpertMatchingPage onNavigate={setCurrentPage} />;
       case 'swarm':
-        return <SwarmRoomPage onNavigate={setCurrentPage} />;
+        return <SwarmRoomPage  />;
       default:
         return <HomePage onNavigate={setCurrentPage}  />;
     }
