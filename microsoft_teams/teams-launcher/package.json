@@ -7,7 +7,9 @@
     "engines": {
         "vscode": "^1.74.0"
     },
-    "categories": ["Other"],
+    "categories": [
+        "Other"
+    ],
     "main": "./out/extension.js",
     "contributes": {
         "configuration": {
@@ -19,7 +21,7 @@
                     "default": ""
                 },
                 "teams-launcher.tenantId": {
-                    "type": "string", 
+                    "type": "string",
                     "description": "Azure Tenant ID",
                     "default": ""
                 },
@@ -42,7 +44,7 @@
                 "category": "Teams"
             },
             {
-                "command": "teams.joinMeeting", 
+                "command": "teams.joinMeeting",
                 "title": "Join Teams Meeting",
                 "category": "Teams"
             },
@@ -55,7 +57,7 @@
             {
                 "command": "teams.sendInvite",
                 "title": "Send Meeting Invitation",
-                "category": "Teams", 
+                "category": "Teams",
                 "icon": "$(mail)"
             },
             {
@@ -100,8 +102,9 @@
         "watch": "tsc -watch -p ./"
     },
     "devDependencies": {
-        "@types/vscode": "^1.74.0",
+        "@types/jest": "^30.0.0",
         "@types/node": "16.x",
+        "@types/vscode": "^1.102.0",
         "typescript": "^4.9.4"
     }
 }

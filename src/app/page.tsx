@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import IntegrationManager from './components/integration';
 import HomePage from '../app/components/HomePage';
 import ChatBotPage from './components/ChatBotPage';
 import ExpertMatchingPage from './components/expertMatching';
@@ -22,6 +23,7 @@ export default function App() {
       default:
         return <HomePage onNavigate={setCurrentPage}  />;
     }
+    // return <IntegrationManager/>
   };
 
   return (
