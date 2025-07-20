@@ -285,22 +285,24 @@ const SAPSupportChatbot = ({ onNavigate }: { onNavigate: (page: string) => void 
 
   const supportEngineerResponse = () => {
     addMessage('support', `👨‍💻 Hello, I'm SANJAY MALHOTRA from the SAP Labs Support Team. I'm looking into your case involving ${identifiedComponents.join(', ')} components.\n\n` +
-      `Based on my initial analysis, I can:\n1. Provide a direct solution for this issue\n2. Create a swarm session with relevant SAP experts for deeper assistance\n3. Escalate to specialized team if needed`);
+      `Based on my initial analysis, I can:\n 1. Create a swarm session with relevant SAP experts for deeper assistance\n2. Escalate to specialized team if needed \n3. Provide a direct solution for this issue\n`);
     
     setConversationStage('support_engineer_selection');
   };
 
   const handleSupportEngineerChoice = (choice: string) => {
-    if (/1|solution|direct/i.test(choice)) {
-      addMessage('support', "I'll provide a solution for this case. Please give me a moment to prepare the recommended approach...");
-      provideSupportEngineerSolution();
-    } else if (/2|swarm|session|experts/i.test(choice)) {
+     if (/1|swarm|session|experts/i.test(choice)) {
       addMessage('support', "I'll coordinate a swarm session with our SAP experts to assist you. Let me identify the right specialists...");
       // createSwarmSession();
-    } else if (/3|escalate|specialized/i.test(choice)) {
+    } else if (/2|escalate|specialized/i.test(choice)) {
       addMessage('support', "I'll escalate this to the appropriate specialized team. Gathering all necessary details for the handoff...");
       escalateToSpecializedTeam();
-    } else {
+    } 
+    else if (/3|solution|direct/i.test(choice)) {
+      addMessage('support', "I'll provide a solution for this case. Please give me a moment to prepare the recommended approach...");
+      provideSupportEngineerSolution();
+    } 
+    else {
       addMessage('bot', "Please select a valid option:\n1. Direct solution\n2. Swarm session\n3. Escalate to specialized team");
     }
   };
