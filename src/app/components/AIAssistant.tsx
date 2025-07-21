@@ -316,7 +316,7 @@ const AIMeetingAssistant: React.FC<{
         }
 
         index++;
-        setTimeout(addTranscript, 1500 + Math.random() * 2000); // 1.5 - 3.5 seconds between messages
+        setTimeout(addTranscript, 500 + Math.random() * 2000); // 1.5 - 3.5 seconds between messages
       } else {
         // Meeting completed
         setTimeout(() => {
