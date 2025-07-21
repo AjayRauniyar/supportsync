@@ -622,301 +622,301 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
   ];
 
   
-  // Render Functions
-  const renderDashboard = () => (
+  // // Render Functions
+  // const renderDashboard = () => (
     
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 p-8">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">SAP Support  Center</h1>
-              <p className="text-gray-600">Complete orchestration of customer support, expert matching, and AI assistance</p>
-            </div>
-            <div className="flex items-center space-x-4">
-              <div className="bg-green-100 px-4 py-2 rounded-full border border-green-200">
-                <span className="text-green-800 font-medium">All Systems Operational</span>
-              </div>
-              <div className="bg-white p-2 rounded-lg shadow-sm">
-                <Clock className="h-5 w-5 text-gray-600" />
-              </div>
-            </div>
-          </div>
-        </div>
+  //   <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 p-8">
+  //     <div className="max-w-7xl mx-auto">
+  //       {/* Header */}
+  //       <div className="mb-8">
+  //         <div className="flex items-center justify-between">
+  //           <div>
+  //             <h1 className="text-3xl font-bold text-gray-900 mb-2">SAP Support  Center</h1>
+  //             <p className="text-gray-600">Complete orchestration of customer support, expert matching, and AI assistance</p>
+  //           </div>
+  //           <div className="flex items-center space-x-4">
+  //             <div className="bg-green-100 px-4 py-2 rounded-full border border-green-200">
+  //               <span className="text-green-800 font-medium">All Systems Operational</span>
+  //             </div>
+  //             <div className="bg-white p-2 rounded-lg shadow-sm">
+  //               <Clock className="h-5 w-5 text-gray-600" />
+  //             </div>
+  //           </div>
+  //         </div>
+  //       </div>
 
-        {/* System Metrics Overview */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 text-sm font-medium">Total Cases</p>
-                <p className="text-2xl font-bold text-gray-900">{systemState.systemMetrics.totalCases}</p>
-                <p className="text-green-600 text-sm">+{systemState.systemMetrics.completedToday} today</p>
-              </div>
-              <div className="bg-blue-100 p-3 rounded-lg">
-                <BarChart3 className="h-6 w-6 text-blue-600" />
-              </div>
-            </div>
-          </div>
+  //       {/* System Metrics Overview */}
+  //       <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+  //         <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+  //           <div className="flex items-center justify-between">
+  //             <div>
+  //               <p className="text-gray-600 text-sm font-medium">Total Cases</p>
+  //               <p className="text-2xl font-bold text-gray-900">{systemState.systemMetrics.totalCases}</p>
+  //               <p className="text-green-600 text-sm">+{systemState.systemMetrics.completedToday} today</p>
+  //             </div>
+  //             <div className="bg-blue-100 p-3 rounded-lg">
+  //               <BarChart3 className="h-6 w-6 text-blue-600" />
+  //             </div>
+  //           </div>
+  //         </div>
 
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 text-sm font-medium">Active Meetings</p>
-                <p className="text-2xl font-bold text-gray-900">{systemState.systemMetrics.activeMeetings}</p>
-                <p className="text-blue-600 text-sm">AI assisted</p>
-              </div>
-              <div className="bg-green-100 p-3 rounded-lg">
-                <Video className="h-6 w-6 text-green-600" />
-              </div>
-            </div>
-          </div>
+  //         <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+  //           <div className="flex items-center justify-between">
+  //             <div>
+  //               <p className="text-gray-600 text-sm font-medium">Active Meetings</p>
+  //               <p className="text-2xl font-bold text-gray-900">{systemState.systemMetrics.activeMeetings}</p>
+  //               <p className="text-blue-600 text-sm">AI assisted</p>
+  //             </div>
+  //             <div className="bg-green-100 p-3 rounded-lg">
+  //               <Video className="h-6 w-6 text-green-600" />
+  //             </div>
+  //           </div>
+  //         </div>
 
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 text-sm font-medium">Customer Satisfaction</p>
-                <p className="text-2xl font-bold text-gray-900">{systemState.systemMetrics.customerSatisfaction}%</p>
-                <p className="text-green-600 text-sm">↗ +2% this week</p>
-              </div>
-              <div className="bg-yellow-100 p-3 rounded-lg">
-                <Star className="h-6 w-6 text-yellow-600" />
-              </div>
-            </div>
-          </div>
+  //         <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+  //           <div className="flex items-center justify-between">
+  //             <div>
+  //               <p className="text-gray-600 text-sm font-medium">Customer Satisfaction</p>
+  //               <p className="text-2xl font-bold text-gray-900">{systemState.systemMetrics.customerSatisfaction}%</p>
+  //               <p className="text-green-600 text-sm">↗ +2% this week</p>
+  //             </div>
+  //             <div className="bg-yellow-100 p-3 rounded-lg">
+  //               <Star className="h-6 w-6 text-yellow-600" />
+  //             </div>
+  //           </div>
+  //         </div>
 
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 text-sm font-medium">AI Accuracy</p>
-                <p className="text-2xl font-bold text-gray-900">{Math.round(systemState.systemMetrics.aiAccuracy)}%</p>
-                <p className="text-purple-600 text-sm">Continuously learning</p>
-              </div>
-              <div className="bg-purple-100 p-3 rounded-lg">
-                <Bot className="h-6 w-6 text-purple-600" />
-              </div>
-            </div>
-          </div>
-        </div>
+  //         <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+  //           <div className="flex items-center justify-between">
+  //             <div>
+  //               <p className="text-gray-600 text-sm font-medium">AI Accuracy</p>
+  //               <p className="text-2xl font-bold text-gray-900">{Math.round(systemState.systemMetrics.aiAccuracy)}%</p>
+  //               <p className="text-purple-600 text-sm">Continuously learning</p>
+  //             </div>
+  //             <div className="bg-purple-100 p-3 rounded-lg">
+  //               <Bot className="h-6 w-6 text-purple-600" />
+  //             </div>
+  //           </div>
+  //         </div>
+  //       </div>
 
-        {/* System Components */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-          {/* Customer ChatBot */}
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-            <div className="flex items-center space-x-3 mb-4">
-              <div className="bg-blue-600 p-2 rounded-lg">
-                <MessageSquare className="h-5 w-5 text-white" />
-              </div>
-              <h3 className="text-lg font-bold text-gray-900">Customer ChatBot</h3>
-            </div>
-            <p className="text-gray-600 text-sm mb-4">
-              First point of contact for customers. Provides initial support and intelligently escalates complex issues.
-            </p>
-            <div className="space-y-2 mb-4">
-              <div className="flex justify-between text-sm">
-                <span className="text-gray-600">Active Sessions</span>
-                <span className="font-medium">12</span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span className="text-gray-600">Resolution Rate</span>
-                <span className="font-medium">76%</span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span className="text-gray-600">Avg Response</span>
-                <span className="font-medium">2.1s</span>
-              </div>
-            </div>
-            <button
-              onClick={() => setSystemState(prev => ({ ...prev, customerChatOpen: true }))}
-              className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              Open Customer Chat
-            </button>
-          </div>
+  //       {/* System Components */}
+  //       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+  //         {/* Customer ChatBot */}
+  //         <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+  //           <div className="flex items-center space-x-3 mb-4">
+  //             <div className="bg-blue-600 p-2 rounded-lg">
+  //               <MessageSquare className="h-5 w-5 text-white" />
+  //             </div>
+  //             <h3 className="text-lg font-bold text-gray-900">Customer ChatBot</h3>
+  //           </div>
+  //           <p className="text-gray-600 text-sm mb-4">
+  //             First point of contact for customers. Provides initial support and intelligently escalates complex issues.
+  //           </p>
+  //           <div className="space-y-2 mb-4">
+  //             <div className="flex justify-between text-sm">
+  //               <span className="text-gray-600">Active Sessions</span>
+  //               <span className="font-medium">12</span>
+  //             </div>
+  //             <div className="flex justify-between text-sm">
+  //               <span className="text-gray-600">Resolution Rate</span>
+  //               <span className="font-medium">76%</span>
+  //             </div>
+  //             <div className="flex justify-between text-sm">
+  //               <span className="text-gray-600">Avg Response</span>
+  //               <span className="font-medium">2.1s</span>
+  //             </div>
+  //           </div>
+  //           <button
+  //             onClick={() => setSystemState(prev => ({ ...prev, customerChatOpen: true }))}
+  //             className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors"
+  //           >
+  //             Open Customer Chat
+  //           </button>
+  //         </div>
 
-          {/* SAP Support ChatBot */}
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-            <div className="flex items-center space-x-3 mb-4">
-              <div className="bg-purple-600 p-2 rounded-lg">
-                <Users className="h-5 w-5 text-white" />
-              </div>
-              <h3 className="text-lg font-bold text-gray-900">SAP Support Center</h3>
-            </div>
-            <p className="text-gray-600 text-sm mb-4">
-              Expert matching system with Microsoft-style calendar integration for scheduling consultations.
-            </p>
-            <div className="space-y-2 mb-4">
-              <div className="flex justify-between text-sm">
-                <span className="text-gray-600">Available Experts</span>
-                <span className="font-medium">8</span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span className="text-gray-600">Meetings Scheduled</span>
-                <span className="font-medium">15</span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span className="text-gray-600">Match Accuracy</span>
-                <span className="font-medium">94%</span>
-              </div>
-            </div>
-            <button
-              onClick={() => handleNavigation('sap-support')}
-              className="w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition-colors"
-            >
-              Open Support Center
-            </button>
-          </div>
+  //         {/* SAP Support ChatBot */}
+  //         <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+  //           <div className="flex items-center space-x-3 mb-4">
+  //             <div className="bg-purple-600 p-2 rounded-lg">
+  //               <Users className="h-5 w-5 text-white" />
+  //             </div>
+  //             <h3 className="text-lg font-bold text-gray-900">SAP Support Center</h3>
+  //           </div>
+  //           <p className="text-gray-600 text-sm mb-4">
+  //             Expert matching system with Microsoft-style calendar integration for scheduling consultations.
+  //           </p>
+  //           <div className="space-y-2 mb-4">
+  //             <div className="flex justify-between text-sm">
+  //               <span className="text-gray-600">Available Experts</span>
+  //               <span className="font-medium">8</span>
+  //             </div>
+  //             <div className="flex justify-between text-sm">
+  //               <span className="text-gray-600">Meetings Scheduled</span>
+  //               <span className="font-medium">15</span>
+  //             </div>
+  //             <div className="flex justify-between text-sm">
+  //               <span className="text-gray-600">Match Accuracy</span>
+  //               <span className="font-medium">94%</span>
+  //             </div>
+  //           </div>
+  //           <button
+  //             onClick={() => handleNavigation('sap-support')}
+  //             className="w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition-colors"
+  //           >
+  //             Open Support Center
+  //           </button>
+  //         </div>
 
-          {/* AI Meeting Assistant */}
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-            <div className="flex items-center space-x-3 mb-4">
-              <div className="bg-green-600 p-2 rounded-lg">
-                <Video className="h-5 w-5 text-white" />
-              </div>
-              <h3 className="text-lg font-bold text-gray-900">AI Meeting Assistant</h3>
-            </div>
-            <p className="text-gray-600 text-sm mb-4">
-              Joins meetings automatically, provides real-time transcription, and generates documentation.
-            </p>
-            <div className="space-y-2 mb-4">
-              <div className="flex justify-between text-sm">
-                <span className="text-gray-600">Active Meetings</span>
-                <span className="font-medium">{systemState.systemMetrics.activeMeetings}</span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span className="text-gray-600">Transcription Accuracy</span>
-                <span className="font-medium">96%</span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span className="text-gray-600">KB Updates Today</span>
-                <span className="font-medium">{systemState.systemMetrics.knowledgebaseUpdates}</span>
-              </div>
-            </div>
-            <button
-              onClick={() => handleNavigation('ai-meeting')}
-              className="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors"
-            >
-              Open Meeting Assistant
-            </button>
-          </div>
-        </div>
+  //         {/* AI Meeting Assistant */}
+  //         <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+  //           <div className="flex items-center space-x-3 mb-4">
+  //             <div className="bg-green-600 p-2 rounded-lg">
+  //               <Video className="h-5 w-5 text-white" />
+  //             </div>
+  //             <h3 className="text-lg font-bold text-gray-900">AI Meeting Assistant</h3>
+  //           </div>
+  //           <p className="text-gray-600 text-sm mb-4">
+  //             Joins meetings automatically, provides real-time transcription, and generates documentation.
+  //           </p>
+  //           <div className="space-y-2 mb-4">
+  //             <div className="flex justify-between text-sm">
+  //               <span className="text-gray-600">Active Meetings</span>
+  //               <span className="font-medium">{systemState.systemMetrics.activeMeetings}</span>
+  //             </div>
+  //             <div className="flex justify-between text-sm">
+  //               <span className="text-gray-600">Transcription Accuracy</span>
+  //               <span className="font-medium">96%</span>
+  //             </div>
+  //             <div className="flex justify-between text-sm">
+  //               <span className="text-gray-600">KB Updates Today</span>
+  //               <span className="font-medium">{systemState.systemMetrics.knowledgebaseUpdates}</span>
+  //             </div>
+  //           </div>
+  //           <button
+  //             onClick={() => handleNavigation('ai-meeting')}
+  //             className="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors"
+  //           >
+  //             Open Meeting Assistant
+  //           </button>
+  //         </div>
+  //       </div>
 
-        {/* Active Data Transfers */}
-        {systemState.activeTransfers.length > 0 && (
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 mb-8">
-            <h3 className="text-lg font-bold text-gray-900 mb-4">Active Case Transfers</h3>
-            <div className="space-y-4">
-              {systemState.activeTransfers.map((transfer) => (
-                <div key={transfer.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                  <div className="flex items-center space-x-4">
-                    <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">
-                      {transfer.customerInfo.name.charAt(0)}
-                    </div>
-                    <div>
-                      <p className="font-medium text-gray-900">Case {transfer.ticketId}</p>
-                      <p className="text-sm text-gray-600">{transfer.customerInfo.name} - {transfer.customerInfo.issueType}</p>
-                      <p className="text-xs text-gray-500">Stage: {transfer.currentStage.replace('_', ' ').toUpperCase()}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center space-x-4">
-                    <div className="text-right">
-                      <p className="text-sm font-medium text-gray-900">{transfer.progress}%</p>
-                      <div className="w-24 h-2 bg-gray-200 rounded-full mt-1">
-                        <div 
-                          className="h-2 bg-blue-600 rounded-full transition-all duration-500"
-                          style={{ width: `${transfer.progress}%` }}
-                        />
-                      </div>
-                    </div>
-                    {transfer.estimatedCompletion && (
-                      <div className="text-xs text-gray-500">
-                        ETA: {transfer.estimatedCompletion.toLocaleTimeString()}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
+  //       {/* Active Data Transfers */}
+  //       {systemState.activeTransfers.length > 0 && (
+  //         <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 mb-8">
+  //           <h3 className="text-lg font-bold text-gray-900 mb-4">Active Case Transfers</h3>
+  //           <div className="space-y-4">
+  //             {systemState.activeTransfers.map((transfer) => (
+  //               <div key={transfer.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+  //                 <div className="flex items-center space-x-4">
+  //                   <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">
+  //                     {transfer.customerInfo.name.charAt(0)}
+  //                   </div>
+  //                   <div>
+  //                     <p className="font-medium text-gray-900">Case {transfer.ticketId}</p>
+  //                     <p className="text-sm text-gray-600">{transfer.customerInfo.name} - {transfer.customerInfo.issueType}</p>
+  //                     <p className="text-xs text-gray-500">Stage: {transfer.currentStage.replace('_', ' ').toUpperCase()}</p>
+  //                   </div>
+  //                 </div>
+  //                 <div className="flex items-center space-x-4">
+  //                   <div className="text-right">
+  //                     <p className="text-sm font-medium text-gray-900">{transfer.progress}%</p>
+  //                     <div className="w-24 h-2 bg-gray-200 rounded-full mt-1">
+  //                       <div 
+  //                         className="h-2 bg-blue-600 rounded-full transition-all duration-500"
+  //                         style={{ width: `${transfer.progress}%` }}
+  //                       />
+  //                     </div>
+  //                   </div>
+  //                   {transfer.estimatedCompletion && (
+  //                     <div className="text-xs text-gray-500">
+  //                       ETA: {transfer.estimatedCompletion.toLocaleTimeString()}
+  //                     </div>
+  //                   )}
+  //                 </div>
+  //               </div>
+  //             ))}
+  //           </div>
+  //         </div>
+  //       )}
 
-        {/* Data Flow Visualization */}
-        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 mb-8">
-          <h3 className="text-lg font-bold text-gray-900 mb-4">Recent Data Flow</h3>
-          <div className="space-y-3">
-            {systemState.dataFlow.slice(-5).map((flow) => (
-              <div key={flow.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                <div className="flex items-center space-x-3">
-                  <div className={`w-3 h-3 rounded-full ${
-                    flow.status === 'completed' ? 'bg-green-500' :
-                    flow.status === 'processing' ? 'bg-blue-500 animate-pulse' :
-                    flow.status === 'failed' ? 'bg-red-500' : 'bg-gray-500'
-                  }`} />
-                  <span className="text-sm font-medium text-gray-900">
-                    {flow.fromComponent} → {flow.toComponent}
-                  </span>
-                  <span className={`px-2 py-1 rounded text-xs font-medium ${
-                    flow.type === 'case_transfer' ? 'bg-blue-100 text-blue-800' :
-                    flow.type === 'meeting_schedule' ? 'bg-purple-100 text-purple-800' :
-                    flow.type === 'summary_complete' ? 'bg-green-100 text-green-800' :
-                    'bg-gray-100 text-gray-800'
-                  }`}>
-                    {flow.type.replace('_', ' ').toUpperCase()}
-                  </span>
-                </div>
-                <div className="text-xs text-gray-500">
-                  {flow.timestamp.toLocaleTimeString()}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+  //       {/* Data Flow Visualization */}
+  //       <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 mb-8">
+  //         <h3 className="text-lg font-bold text-gray-900 mb-4">Recent Data Flow</h3>
+  //         <div className="space-y-3">
+  //           {systemState.dataFlow.slice(-5).map((flow) => (
+  //             <div key={flow.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+  //               <div className="flex items-center space-x-3">
+  //                 <div className={`w-3 h-3 rounded-full ${
+  //                   flow.status === 'completed' ? 'bg-green-500' :
+  //                   flow.status === 'processing' ? 'bg-blue-500 animate-pulse' :
+  //                   flow.status === 'failed' ? 'bg-red-500' : 'bg-gray-500'
+  //                 }`} />
+  //                 <span className="text-sm font-medium text-gray-900">
+  //                   {flow.fromComponent} → {flow.toComponent}
+  //                 </span>
+  //                 <span className={`px-2 py-1 rounded text-xs font-medium ${
+  //                   flow.type === 'case_transfer' ? 'bg-blue-100 text-blue-800' :
+  //                   flow.type === 'meeting_schedule' ? 'bg-purple-100 text-purple-800' :
+  //                   flow.type === 'summary_complete' ? 'bg-green-100 text-green-800' :
+  //                   'bg-gray-100 text-gray-800'
+  //                 }`}>
+  //                   {flow.type.replace('_', ' ').toUpperCase()}
+  //                 </span>
+  //               </div>
+  //               <div className="text-xs text-gray-500">
+  //                 {flow.timestamp.toLocaleTimeString()}
+  //               </div>
+  //             </div>
+  //           ))}
+  //         </div>
+  //       </div>
 
-        {/* System Notifications */}
-        {systemState.notifications.length > 0 && (
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-bold text-gray-900">System Notifications</h3>
-              <span className="text-sm text-gray-500">
-                {systemState.notifications.filter(n => !n.read).length} unread
-              </span>
-            </div>
-            <div className="space-y-3">
-              {systemState.notifications.slice(0, 5).map((notification) => (
-                <div 
-                  key={notification.id}
-                  className={`p-3 rounded-lg border cursor-pointer transition-all ${
-                    !notification.read 
-                      ? 'bg-blue-50 border-blue-200' 
-                      : 'bg-gray-50 border-gray-200'
-                  }`}
-                  onClick={() => markNotificationRead(notification.id)}
-                >
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-start space-x-3">
-                      <div className={`w-2 h-2 rounded-full mt-2 ${
-                        notification.type === 'success' ? 'bg-green-500' :
-                        notification.type === 'warning' ? 'bg-yellow-500' :
-                        notification.type === 'error' ? 'bg-red-500' : 'bg-blue-500'
-                      }`} />
-                      <div>
-                        <p className="font-medium text-gray-900">{notification.title}</p>
-                        <p className="text-sm text-gray-600">{notification.message}</p>
-                      </div>
-                    </div>
-                    <span className="text-xs text-gray-500">
-                      {notification.timestamp.toLocaleTimeString()}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
-  );
+  //       {/* System Notifications */}
+  //       {systemState.notifications.length > 0 && (
+  //         <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+  //           <div className="flex items-center justify-between mb-4">
+  //             <h3 className="text-lg font-bold text-gray-900">System Notifications</h3>
+  //             <span className="text-sm text-gray-500">
+  //               {systemState.notifications.filter(n => !n.read).length} unread
+  //             </span>
+  //           </div>
+  //           <div className="space-y-3">
+  //             {systemState.notifications.slice(0, 5).map((notification) => (
+  //               <div 
+  //                 key={notification.id}
+  //                 className={`p-3 rounded-lg border cursor-pointer transition-all ${
+  //                   !notification.read 
+  //                     ? 'bg-blue-50 border-blue-200' 
+  //                     : 'bg-gray-50 border-gray-200'
+  //                 }`}
+  //                 onClick={() => markNotificationRead(notification.id)}
+  //               >
+  //                 <div className="flex items-start justify-between">
+  //                   <div className="flex items-start space-x-3">
+  //                     <div className={`w-2 h-2 rounded-full mt-2 ${
+  //                       notification.type === 'success' ? 'bg-green-500' :
+  //                       notification.type === 'warning' ? 'bg-yellow-500' :
+  //                       notification.type === 'error' ? 'bg-red-500' : 'bg-blue-500'
+  //                     }`} />
+  //                     <div>
+  //                       <p className="font-medium text-gray-900">{notification.title}</p>
+  //                       <p className="text-sm text-gray-600">{notification.message}</p>
+  //                     </div>
+  //                   </div>
+  //                   <span className="text-xs text-gray-500">
+  //                     {notification.timestamp.toLocaleTimeString()}
+  //                   </span>
+  //                 </div>
+  //               </div>
+  //             ))}
+  //           </div>
+  //         </div>
+  //       )}
+  //     </div>
+  //   </div>
+  // );
 
   return (
     <div 
@@ -1301,7 +1301,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
       <CustomerChatBot chatOpen={chatOpen} setChatOpen={setChatOpen} />
 
         {/* Main Content */}
-      {systemState.activeComponent === 'home' && renderDashboard()}
+      {/* {systemState.activeComponent === 'home' && renderDashboard()}
       {systemState.activeComponent === 'sap-support' && (
         <SAPSupportChatbot 
           onNavigate={handleNavigation}
@@ -1313,14 +1313,14 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
           meetingData={scheduledMeetingData}
           onNavigate={handleNavigation}
         />
-      )}
+      )} */}
 
       {/* Customer ChatBot - Always Available */}
-      <CustomerChatBot
+      {/* <CustomerChatBot
         chatOpen={systemState.customerChatOpen}
         setChatOpen={(open) => setSystemState(prev => ({ ...prev, customerChatOpen: open }))}
         onRedirectToSAPSupport={handleCustomerToSAPTransfer}
-      />
+      /> */}
 
       {/* Footer */}
       <footer className="relative z-10 bg-white border-t border-gray-200 mt-16">
