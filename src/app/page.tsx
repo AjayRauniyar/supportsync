@@ -15,7 +15,7 @@ export default function App() {
       case 'home':
         return <HomePage onNavigate={setCurrentPage}  />;
       case 'chat':
-        return <ChatBotPage onNavigate={setCurrentPage} />;
+        return <IntegrationManager onNavigate={setCurrentPage} />;
       case 'experts':
         return <ExpertMatchingPage onNavigate={setCurrentPage} />;
       case 'swarm':

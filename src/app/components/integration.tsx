@@ -68,9 +68,11 @@ interface SystemMetrics {
   aiAccuracy: number;
   knowledgebaseUpdates: number;
 }
-
+interface HomePageProps {
+  onNavigate: (page: string, data?: any) => void;
+};
 // Main Integration Manager Component
-const IntegrationManager: React.FC = () => {
+const IntegrationManager:  React.FC<HomePageProps> = ({ onNavigate }) => {
   
   // Core State Management
   const [systemState, setSystemState] = useState<SystemState>({
@@ -587,61 +589,61 @@ const IntegrationManager: React.FC = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Navigation Header */}
-      <nav className="bg-white border-b border-gray-200 sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex items-center space-x-8">
-              <div className="flex items-center space-x-3">
-                <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-2 rounded-lg">
-                  <Shield className="h-6 w-6 text-white" />
-                </div>
-               <div>
-                <h1 className="text-2xl font-bold text-gray-800">
-                  SAP SupportSync
-                </h1>
-                <p className="text-sm text-gray-600">Connecting Right Minds, Right Now</p>
-              </div>
-              </div>
-              
-              <div className="hidden md:flex items-center space-x-1">
-                <button
-                  onClick={() => handleNavigation('home')}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    systemState.activeComponent === 'home' 
-                      ? 'bg-blue-100 text-blue-700' 
-                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
-                  }`}
-                >
-                  <Home className="h-4 w-4 inline mr-2" />
-                  Dashboard
-                </button>
-                <button
-                  onClick={() => handleNavigation('analytics')}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    systemState.activeComponent === 'analytics' 
-                      ? 'bg-blue-100 text-blue-700' 
-                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
-                  }`}
-                >
-                  <Activity className="h-4 w-4 inline mr-2" />
-                  Analytics
-                </button>
-              </div>
-            </div>
-            
-            <div className="flex items-center space-x-4">
-              <div className="relative">
-                <Bell className="h-6 w-6 text-gray-600" />
-                {systemState.notifications.filter(n => !n.read).length > 0 && (
-                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full" />
-                )}
-              </div>
-              <Settings className="h-6 w-6 text-gray-600 cursor-pointer hover:text-gray-900" />
-            </div>
-          </div>
-        </div>
-      </nav>
+      {/* Header with higher z-index */}
+           <header className="relative z-40 bg-white/90 backdrop-blur-xl border-b border-gray-200 sticky top-0 shadow-sm">
+             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+               <div className="flex justify-between items-center h-20">
+                 <div className="flex items-center space-x-4">
+                   <div 
+                     className="relative transform-gpu"
+                     style={{
+                      
+                       transformStyle: 'preserve-3d',
+                       transition: 'transform 0.2s ease-out'
+                     }}
+                   >
+                     <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl blur-lg opacity-60 animate-pulse-glow" />
+                     <div className="relative bg-gradient-to-r from-blue-600 to-purple-600 p-3 rounded-xl shadow-lg border border-white/30">
+                       <Zap className="h-8 w-8 text-white filter drop-shadow-lg" />
+                     </div>
+                   </div>
+                   <div>
+                     <h1 className="text-2xl font-bold text-gray-800">
+                       SAP SupportSync
+                     </h1>
+                     <p className="text-sm text-gray-600">Connecting Right Minds, Right Now</p>
+                   </div>
+                 </div>
+                 
+                 <nav className="hidden md:flex items-center space-x-8">
+                   {[
+                     { icon: Home, label: 'Dashboard', page: 'home' },
+                     { icon: Bot, label: 'AI Assistant', page: 'chat' },
+                     { icon: Users, label: 'Expert Matching', page: 'experts' },
+                     { icon: MessageSquare, label: 'Swarm Rooms', page: 'swarm' }
+                   ].map((item, index) => (
+                     <button
+                       key={index}
+                       onClick={() => onNavigate(item.page)}
+                       className="group relative flex items-center space-x-2 text-gray-700 hover:text-blue-600 transition-all duration-300"
+                     >
+                       <div className="relative p-2 rounded-lg hover:bg-gray-100 transition-all duration-300">
+                         <item.icon className="h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
+                       </div>
+                       <span className="font-medium">{item.label}</span>
+                     </button>
+                   ))}
+                 </nav>
+     
+                 <div className="flex items-center space-x-4">
+                   <button className="relative p-3 text-gray-600 hover:text-blue-600 transition-colors group">
+                     <Bell className="h-6 w-6 group-hover:rotate-12 transition-transform duration-300" />
+                     <span className="absolute top-1 right-1 block h-3 w-3 rounded-full bg-gradient-to-r from-orange-500 to-red-500 ring-2 ring-white animate-ping" />
+                   </button>
+                 </div>
+               </div>
+             </div>
+           </header>
       
 
       {/* Main Content */}

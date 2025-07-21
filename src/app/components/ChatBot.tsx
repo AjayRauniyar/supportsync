@@ -398,7 +398,7 @@ const CustomerChatBot: React.FC<CustomerChatBotProps> = ({
                 <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-white" />
               </div>
               <div>
-                <span className="font-semibold text-white">SAP AI Assistant</span>
+                <span className="font-semibold text-white">AI Assistant</span>
                 <div className="text-xs text-white/90">
                   {isTyping ? 'Analyzing your issue...' :
                    conversationStage === 'redirecting' ? 'Connecting to experts...' :

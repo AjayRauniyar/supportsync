@@ -189,9 +189,24 @@ const SAPSupportChatbot: React.FC<{
     }
   }, [transferredData]);
 
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+useEffect(() => {
+  // Smooth scroll to bottom with proper timing
+  const scrollToBottom = () => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'end',
+        inline: 'nearest'
+      });
+    }
+  };
+
+  // Delay scroll slightly to ensure content is rendered
+  const timeoutId = setTimeout(scrollToBottom, 100);
+  
+  return () => clearTimeout(timeoutId);
+}, [messages]);
+
 
   // Helper Functions
   const addMessage = (type: 'user' | 'bot' | 'system' | 'expert' | 'meeting', content: string, data?: any) => {
@@ -416,7 +431,7 @@ const SAPSupportChatbot: React.FC<{
       participants.map(p => `• ${p.name} (${p.role})`).join('\n') +
       `\n\n**🔗 Join Link:** [Microsoft Teams Meeting](${meeting.meetingLink})\n\n` +
       `**📧 Calendar Invitations Sent To:**\n` +
-      `• ${caseAnalysis.customerInfo.email} (Customer)\n` +
+      `• ${caseAnalysis.customerInfo.email} (Customer Support Engineer)\n` +
       `• ${selectedExpert.name.toLowerCase().replace(' ', '.')}@sapexperts.com (Expert)\n\n` +
       `**🤖 AI Meeting Assistant Features:**\n` +
       `• Real-time meeting transcription\n` +
@@ -503,10 +518,18 @@ const SAPSupportChatbot: React.FC<{
     }, 1200);
   };
 
-  // Render Functions
-  const renderChatView = () => (
-    <div className="flex-1 flex flex-col">
-      <div className="flex-1 overflow-y-auto p-6 space-y-4">
+ const renderChatView = () => (
+  <div className="flex-1 flex flex-col bg-gradient-to-br from-purple-50 to-blue-50">
+    {/* Chat Messages Container - Fixed Height and Scroll */}
+    <div 
+      className="flex-1 overflow-y-auto bg-transparent"
+      style={{
+        minHeight: 0, // Critical for flex scrolling
+        maxHeight: 'calc(100vh - 200px)', // Prevent full screen takeover
+        scrollBehavior: 'smooth'
+      }}
+    >
+      <div className="p-6 space-y-4 min-h-full">
         {messages.map((message) => (
           <div key={message.id} className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
             <div className={`max-w-[85%] rounded-xl px-4 py-3 shadow-sm ${
@@ -531,7 +554,8 @@ const SAPSupportChatbot: React.FC<{
                 )}
                 <div className="flex-1">
                   <div 
-                    className="text-sm leading-relaxed whitespace-pre-line"
+                    className="text-sm leading-relaxed whitespace-pre-line break-words"
+                    style={{ wordWrap: 'break-word', overflowWrap: 'break-word' }}
                     dangerouslySetInnerHTML={{ 
                       __html: message.content.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') 
                     }}
@@ -559,30 +583,37 @@ const SAPSupportChatbot: React.FC<{
             </div>
           </div>
         )}
-        <div ref={messagesEndRef} />
-      </div>
-
-      <div className="border-t p-4 bg-white">
-        <div className="flex space-x-3">
-          <input
-            type="text"
-            value={inputText}
-            onChange={(e) => setInputText(e.target.value)}
-            onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-            placeholder="Ask about expert matching, scheduling, or case analysis..."
-            className="flex-1 border border-gray-300 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-          />
-          <button
-            onClick={handleSendMessage}
-            disabled={!inputText.trim()}
-            className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-2 rounded-xl hover:from-purple-700 hover:to-blue-700 disabled:opacity-50 transition-all"
-          >
-            <Send className="h-4 w-4" />
-          </button>
-        </div>
+        
+        {/* Scroll anchor - always at bottom */}
+        <div ref={messagesEndRef} className="h-1" />
       </div>
     </div>
-  );
+
+    {/* Input Area - Fixed at Bottom */}
+    <div className="border-t bg-white/80 backdrop-blur-sm p-4 flex-shrink-0">
+      <div className="flex space-x-3">
+        <input
+          type="text"
+          value={inputText}
+          onChange={(e) => setInputText(e.target.value)}
+          onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+          placeholder="Ask about expert matching, scheduling, or case analysis..."
+          className="flex-1 border border-gray-300 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white"
+        />
+        <button
+          onClick={handleSendMessage}
+          disabled={!inputText.trim()}
+          className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-2 rounded-xl hover:from-purple-700 hover:to-blue-700 disabled:opacity-50 transition-all flex-shrink-0"
+        >
+          <Send className="h-4 w-4" />
+        </button>
+      </div>
+    </div>
+  </div>
+);
+
+       
+
 
   const renderExpertSelection = () => (
     <div className="flex-1 p-6 overflow-y-auto">
