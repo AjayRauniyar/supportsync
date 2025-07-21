@@ -109,6 +109,7 @@ const AIMeetingAssistant: React.FC<{
   const [isAIProcessing, setIsAIProcessing] = useState(false);
   const transcriptionRef = useRef<HTMLDivElement>(null);
   const meetingTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const transcriptionTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   // Mock meeting data if none provided
   useEffect(() => {
@@ -119,6 +120,9 @@ const AIMeetingAssistant: React.FC<{
     return () => {
       if (meetingTimerRef.current) {
         clearInterval(meetingTimerRef.current);
+      }
+      if (transcriptionTimerRef.current) {
+        clearTimeout(transcriptionTimerRef.current);
       }
     };
   }, []);
@@ -175,7 +179,7 @@ const AIMeetingAssistant: React.FC<{
     setAiStatus('listening');
     
     // Start demo transcription
-    setTimeout(() => {
+    transcriptionTimerRef.current = setTimeout(() => {
       simulateMeetingTranscription();
     }, 3000);
   };
@@ -312,7 +316,7 @@ const AIMeetingAssistant: React.FC<{
         }
 
         index++;
-        setTimeout(addTranscript, 8000 + Math.random() * 4000); // 8-12 seconds between messages
+        setTimeout(addTranscript, 1500 + Math.random() * 2000); // 1.5 - 3.5 seconds between messages
       } else {
         // Meeting completed
         setTimeout(() => {
