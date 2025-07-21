@@ -700,6 +700,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
   //         </div>
   //       </div>
 
+<<<<<<< HEAD
   //       {/* System Components */}
   //       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
   //         {/* Customer ChatBot */}
@@ -734,6 +735,42 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
   //             Open Customer Chat
   //           </button>
   //         </div>
+=======
+        {/* System Components */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+          {/* Customer ChatBot */}
+          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+            <div className="flex items-center space-x-3 mb-4">
+              <div className="bg-blue-600 p-2 rounded-lg">
+                <MessageSquare className="h-5 w-5 text-white" />
+              </div>
+              <h3 className="text-lg font-bold text-gray-900">Support ChatBot</h3>
+            </div>
+            <p className="text-gray-600 text-sm mb-4">
+              First point of contact for Support Engineers. Provides initial support and intelligently escalates complex issues.
+            </p>
+            <div className="space-y-2 mb-4">
+              <div className="flex justify-between text-sm">
+                <span className="text-gray-600">Active Sessions</span>
+                <span className="font-medium">12</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-gray-600">Resolution Rate</span>
+                <span className="font-medium">76%</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-gray-600">Avg Response</span>
+                <span className="font-medium">2.1s</span>
+              </div>
+            </div>
+            <button
+              onClick={() => setSystemState(prev => ({ ...prev, customerChatOpen: true }))}
+              className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              Open Support Chat
+            </button>
+          </div>
+>>>>>>> 7a8f39f2e47a58bad57e0beb21da29a58609ff0c
 
   //         {/* SAP Support ChatBot */}
   //         <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
