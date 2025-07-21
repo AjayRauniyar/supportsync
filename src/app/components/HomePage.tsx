@@ -708,10 +708,10 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
               <div className="bg-blue-600 p-2 rounded-lg">
                 <MessageSquare className="h-5 w-5 text-white" />
               </div>
-              <h3 className="text-lg font-bold text-gray-900">Customer ChatBot</h3>
+              <h3 className="text-lg font-bold text-gray-900">Support ChatBot</h3>
             </div>
             <p className="text-gray-600 text-sm mb-4">
-              First point of contact for customers. Provides initial support and intelligently escalates complex issues.
+              First point of contact for Support Engineers. Provides initial support and intelligently escalates complex issues.
             </p>
             <div className="space-y-2 mb-4">
               <div className="flex justify-between text-sm">
@@ -731,7 +731,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
               onClick={() => setSystemState(prev => ({ ...prev, customerChatOpen: true }))}
               className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors"
             >
-              Open Customer Chat
+              Open Support Chat
             </button>
           </div>
 
