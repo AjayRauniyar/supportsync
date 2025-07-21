@@ -12,18 +12,16 @@ interface HomePageProps {
   onNavigate: (page: string, data?: any) => void;
 };
 
-
 const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
   
   const handleGetStarted = () => {
-    // Navigate to integration page when user clicks "Get Started"
     onNavigate('integration');
   };
 
   const handleFeatureDemo = (featureType: string) => {
-    // Navigate to specific feature demonstration
     onNavigate('integration', { demoFeature: featureType });
   };
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [chatOpen, setChatOpen] = useState(false);
   const [isHovering, setIsHovering] = useState<number | null>(null);
@@ -57,7 +55,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
     };
   }, []);
 
-  // Enhanced canvas animation with diverse colors
+  // ENHANCED BIG BUBBLE CANVAS ANIMATION
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -76,21 +74,27 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
       size: number;
       color: string;
       opacity: number;
+      pulsePhase: number;
     }> = [];
 
-    // Diverse color palette
-    const colors = ['#0f62fe', '#8b5cf6', '#ec4899', '#10b981', '#f59e0b', '#ef4444', '#06b6d4'];
+    // Enhanced color palette with more vibrant colors
+    const colors = [
+      '#0f62fe', '#8b5cf6', '#ec4899', '#10b981', 
+      '#f59e0b', '#ef4444', '#06b6d4', '#ff6b6b',
+      '#4ecdc4', '#45b7d1', '#96ceb4', '#ffeaa7'
+    ];
 
-    // Create particles with diverse colors
-    for (let i = 0; i < 80; i++) {
+    // Create fewer, bigger bubble particles
+    for (let i = 0; i < 20; i++) {
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.6,
-        vy: (Math.random() - 0.5) * 0.6,
-        size: Math.random() * 2 + 1,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        size: Math.random() * 25 + 15, // Big bubbles: 15-40px
         color: colors[Math.floor(Math.random() * colors.length)],
-        opacity: Math.random() * 0.4 + 0.2
+        opacity: Math.random() * 0.4 + 0.4, // Higher opacity: 0.4-0.8
+        pulsePhase: Math.random() * Math.PI * 2
       });
     }
 
@@ -100,25 +104,70 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
       particles.forEach((particle, index) => {
         particle.x += particle.vx;
         particle.y += particle.vy;
+        particle.pulsePhase += 0.02;
         
-        if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
-        if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
+        // Wrap around screen edges with bubble size consideration
+        if (particle.x < -particle.size) particle.x = canvas.width + particle.size;
+        if (particle.x > canvas.width + particle.size) particle.x = -particle.size;
+        if (particle.y < -particle.size) particle.y = canvas.height + particle.size;
+        if (particle.y > canvas.height + particle.size) particle.y = -particle.size;
         
+        // Enhanced bubble with pulsing effect
+        const pulseSize = particle.size + Math.sin(particle.pulsePhase) * 3;
+        const pulseOpacity = particle.opacity + Math.sin(particle.pulsePhase) * 0.1;
+        
+        // Create glowing bubble effect
+        ctx.save();
+        ctx.globalAlpha = pulseOpacity;
+        
+        // Outer glow
         ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx.fillStyle = particle.color + Math.floor(particle.opacity * 255).toString(16).padStart(2, '0');
+        ctx.arc(particle.x, particle.y, pulseSize * 1.3, 0, Math.PI * 2);
+        ctx.fillStyle = particle.color + '20'; // Very transparent outer glow
         ctx.fill();
+        
+        // Inner bubble
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, pulseSize, 0, Math.PI * 2);
+        ctx.fillStyle = particle.color + Math.floor(pulseOpacity * 255).toString(16).padStart(2, '0');
+        ctx.shadowColor = particle.color;
+        ctx.shadowBlur = pulseSize * 0.6;
+        ctx.fill();
+        
+        // Bubble highlight for 3D effect
+        ctx.beginPath();
+        ctx.arc(particle.x - pulseSize * 0.3, particle.y - pulseSize * 0.3, pulseSize * 0.3, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+        ctx.fill();
+        
+        ctx.restore();
 
-        // Draw subtle connections
+        // Enhanced glowing connections between nearby bubbles
         particles.slice(index + 1).forEach(otherParticle => {
           const distance = Math.hypot(particle.x - otherParticle.x, particle.y - otherParticle.y);
-          if (distance < 80) {
+          if (distance < 200) {
+            const connectionOpacity = 0.15 * (1 - distance / 200);
+            
+            ctx.save();
+            ctx.globalAlpha = connectionOpacity;
             ctx.beginPath();
             ctx.moveTo(particle.x, particle.y);
             ctx.lineTo(otherParticle.x, otherParticle.y);
-            ctx.strokeStyle = `rgba(255, 255, 255, ${0.05 * (1 - distance / 80)})`;
-            ctx.lineWidth = 0.5;
+            
+            // Gradient connection line
+            const gradient = ctx.createLinearGradient(
+              particle.x, particle.y, 
+              otherParticle.x, otherParticle.y
+            );
+            gradient.addColorStop(0, particle.color + '80');
+            gradient.addColorStop(1, otherParticle.color + '80');
+            
+            ctx.strokeStyle = gradient;
+            ctx.lineWidth = 2;
+            ctx.shadowColor = '#ffffff';
+            ctx.shadowBlur = 8;
             ctx.stroke();
+            ctx.restore();
           }
         });
       });
@@ -127,8 +176,18 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
     };
     
     animate();
+
+    // Handle window resize
+    const handleResize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // [Rest of your original component code remains the same...]
   const features = [
     {
       icon: Zap,
@@ -305,65 +364,69 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
         `
       }}
     >
-      {/* Enhanced animated canvas background */}
+      {/* ENHANCED BIG BUBBLE CANVAS - Increased opacity for prominence */}
       <canvas
         ref={canvasRef}
-        className="fixed inset-0 pointer-events-none opacity-30"
+        className="fixed inset-0 pointer-events-none opacity-50"
+        style={{ zIndex: 1 }}
       />
 
-      {/* Subtle 3D Environment Background */}
+      {/* Enhanced 3D Environment Background with bigger shapes */}
       <div 
-        className="fixed inset-0 opacity-10 pointer-events-none"
+        className="fixed inset-0 opacity-15 pointer-events-none"
         style={{
           background: `
-            radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.2) 0%, transparent 50%),
-            radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.2) 0%, transparent 50%),
-            radial-gradient(circle at 40% 60%, rgba(16, 185, 129, 0.2) 0%, transparent 50%)
+            radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.3) 0%, transparent 50%),
+            radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.3) 0%, transparent 50%),
+            radial-gradient(circle at 40% 60%, rgba(16, 185, 129, 0.3) 0%, transparent 50%)
           `,
-          transform: `translate3d(${mousePosition.x * 15}px, ${mousePosition.y * 15}px, 0)`,
-          transition: 'transform 0.1s ease-out'
+          transform: `translate3d(${mousePosition.x * 20}px, ${mousePosition.y * 20}px, 0)`,
+          transition: 'transform 0.1s ease-out',
+          zIndex: 2
         }}
       />
 
-      {/* Colorful morphing geometric shapes */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        {[...Array(6)].map((_, i) => (
+      {/* Larger morphing geometric shapes */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none" style={{ zIndex: 3 }}>
+        {[...Array(8)].map((_, i) => (
           <div
             key={i}
-            className="absolute animate-morph-float opacity-8"
+            className="absolute animate-morph-float opacity-12"
             style={{
-              left: `${10 + (i * 15)}%`,
-              top: `${5 + (i * 12)}%`,
+              left: `${5 + (i * 12)}%`,
+              top: `${3 + (i * 10)}%`,
               transform: `
-                translate3d(${mousePosition.x * (8 + i * 4)}px, ${mousePosition.y * (8 + i * 4)}px, 0)
-                rotateX(${mousePosition.y * (4 + i)}deg)
-                rotateY(${mousePosition.x * (4 + i)}deg)
+                translate3d(${mousePosition.x * (12 + i * 6)}px, ${mousePosition.y * (12 + i * 6)}px, 0)
+                rotateX(${mousePosition.y * (6 + i * 2)}deg)
+                rotateY(${mousePosition.x * (6 + i * 2)}deg)
                 rotateZ(${scrollY * 0.1 + i * 30}deg)
               `,
-              animationDelay: `${i * 0.5}s`,
+              animationDelay: `${i * 0.4}s`,
               transition: 'transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1)'
             }}
           >
             <div 
-              className={`w-${12 + i * 3} h-${12 + i * 3} ${
-                i === 0 ? 'bg-gradient-to-r from-blue-400/20 to-blue-500/20' :
-                i === 1 ? 'bg-gradient-to-r from-emerald-400/20 to-emerald-500/20' :
-                i === 2 ? 'bg-gradient-to-r from-purple-400/20 to-purple-500/20' :
-                i === 3 ? 'bg-gradient-to-r from-orange-400/20 to-orange-500/20' :
-                i === 4 ? 'bg-gradient-to-r from-pink-400/20 to-pink-500/20' :
-                'bg-gradient-to-r from-cyan-400/20 to-cyan-500/20'
+              className={`w-${16 + i * 4} h-${16 + i * 4} ${
+                i === 0 ? 'bg-gradient-to-r from-blue-400/30 to-blue-500/30' :
+                i === 1 ? 'bg-gradient-to-r from-emerald-400/30 to-emerald-500/30' :
+                i === 2 ? 'bg-gradient-to-r from-purple-400/30 to-purple-500/30' :
+                i === 3 ? 'bg-gradient-to-r from-orange-400/30 to-orange-500/30' :
+                i === 4 ? 'bg-gradient-to-r from-pink-400/30 to-pink-500/30' :
+                i === 5 ? 'bg-gradient-to-r from-cyan-400/30 to-cyan-500/30' :
+                i === 6 ? 'bg-gradient-to-r from-indigo-400/30 to-indigo-500/30' :
+                'bg-gradient-to-r from-yellow-400/30 to-yellow-500/30'
               } backdrop-blur-xl ${
                 i % 4 === 0 ? 'rounded-none' :
                 i % 4 === 1 ? 'rounded-full' :
                 i % 4 === 2 ? 'rounded-xl rotate-45' :
                 'rounded-lg'
-              } border border-white/20`}
+              } border border-white/30 shadow-lg`}
             />
           </div>
         ))}
       </div>
 
-      {/* Clean Header with white background */}
+      {/* Header with higher z-index */}
       <header className="relative z-40 bg-white/90 backdrop-blur-xl border-b border-gray-200 sticky top-0 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
@@ -389,7 +452,6 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
               </div>
             </div>
             
-            {/* Clean Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
               {[
                 { icon: Home, label: 'Dashboard', page: 'home' },
@@ -420,10 +482,9 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
         </div>
       </header>
 
-      {/* Hero Section with clean design */}
+      {/* Hero Section - Higher z-index to appear above bubbles */}
       <section className="relative z-10 min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">
-          {/* Floating badge */}
           <div 
             className="inline-flex items-center space-x-3 bg-white/80 backdrop-blur-xl px-6 py-3 rounded-full border border-gray-200 mb-8 transform-gpu shadow-lg"
             style={{
@@ -436,7 +497,6 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
           </div>
 
-          {/* Main title */}
           <h2 
             className="text-4xl md:text-7xl font-bold mb-6 leading-tight transform-gpu"
             style={{
@@ -457,13 +517,11 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             </span>
           </h2>
 
-          {/* Description */}
           <p className="text-xl text-gray-600 max-w-4xl mx-auto mb-8 leading-relaxed">
             Experience the future of SAP support with our AI-driven platform that connects the right experts instantly, 
             provides intelligent case analysis, and creates seamless collaboration environments for faster resolution.
           </p>
 
-          {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <button 
               onClick={() => setChatOpen(true)}
@@ -474,15 +532,9 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
                 <span>Start AI Assistant</span>
               </div>
             </button>
-            <button className="group relative overflow-hidden bg-white text-gray-700 px-8 py-4 rounded-lg font-semibold border border-gray-300 hover:bg-gray-50 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-              <div className="relative flex items-center space-x-2 z-10">
-                <Users className="h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
-                <span>Find SAP Experts</span>
-              </div>
-            </button>
+            
           </div>
           
-          {/* Clean Stats Cards */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
             {stats.map((stat, index) => (
               <div 
@@ -511,58 +563,56 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
         </div>
       </section>
 
-      {/* Features Section with colorful clean cards */}
-      <div className="relative z-10 py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold text-gray-800 mb-4">
-              Intelligent Features
-            </h3>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Discover how our AI-powered platform transforms SAP support with cutting-edge technology
-            </p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <div 
-                key={index}
-                className={`group relative bg-white rounded-xl p-6 border border-gray-200 hover:border-gray-300 transition-all duration-500 hover:shadow-xl transform-gpu`}
-                style={{
-                  transform: `perspective(1000px) rotateX(${mousePosition.y * (0.8 + index * 0.2)}deg) rotateY(${mousePosition.x * (0.8 + index * 0.2)}deg)`,
-                  transformStyle: 'preserve-3d',
-                  transition: 'transform 0.3s ease-out, box-shadow 0.5s ease'
-                }}
-              >
-                <div className={`absolute inset-0 ${feature.bgColor} rounded-xl opacity-0 group-hover:opacity-50 transition-opacity duration-500`} />
-                <div className="relative z-10">
-                  <div 
-                    className={`bg-gradient-to-r ${feature.color} w-14 h-14 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}
-                  >
-                    <feature.icon className="h-7 w-7 text-white drop-shadow-sm" />
-                  </div>
-                  <div className="flex items-center justify-between mb-3">
-                    <h4 className={`text-xl font-semibold ${feature.textColor} group-hover:text-gray-800 transition-colors duration-300`}>
-                      {feature.title}
-                    </h4>
-                    <span className={`text-sm font-medium ${feature.accentColor} bg-gray-100 px-2 py-1 rounded-full`}>
-                      {feature.stats}
-                    </span>
-                  </div>
-                  <p className="text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors duration-300 mb-4">
-                    {feature.description}
-                  </p>
-                  <button className={`${feature.accentColor} hover:text-gray-700 flex items-center space-x-1 font-medium group/btn transition-colors duration-300`}>
-                    <span>Learn more</span>
-                    <ChevronRight className="h-4 w-4 group-hover/btn:translate-x-1 transition-transform duration-300" />
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
 
-      {/* Two Column Layout with clean white cards */}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+
+      {/* Two Column Layout */}
       <div className="relative z-10 grid lg:grid-cols-2 gap-8 mb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         {/* Recent Activity */}
         <div 
@@ -740,15 +790,15 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             border-radius: 50% 20% 50% 20%;
           }
           25% {
-            transform: translateY(-12px) rotate(90deg) scale(1.05);
+            transform: translateY(-20px) rotate(90deg) scale(1.1);
             border-radius: 20% 50% 20% 50%;
           }
           50% { 
-            transform: translateY(-20px) rotate(180deg) scale(0.95);
+            transform: translateY(-35px) rotate(180deg) scale(0.9);
             border-radius: 50% 50% 20% 20%;
           }
           75% {
-            transform: translateY(-12px) rotate(270deg) scale(1.02);
+            transform: translateY(-20px) rotate(270deg) scale(1.05);
             border-radius: 20% 20% 50% 50%;
           }
         }
@@ -768,8 +818,8 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             transform: scale(1);
           }
           50% {
-            opacity: 0.8;
-            transform: scale(1.05);
+            opacity: 0.9;
+            transform: scale(1.08);
           }
         }
         
@@ -779,50 +829,54 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
         }
         
         .animate-morph-float {
-          animation: morph-float 12s ease-in-out infinite;
+          animation: morph-float 15s ease-in-out infinite;
         }
         
         .animate-gradient-shift {
           background-size: 200% 200%;
-          animation: gradient-shift 3s ease infinite;
+          animation: gradient-shift 4s ease infinite;
         }
         
         .animate-pulse-glow {
-          animation: pulse-glow 3s ease-in-out infinite;
+          animation: pulse-glow 4s ease-in-out infinite;
         }
         
         .animate-spin-slow {
-          animation: spin-slow 20s linear infinite;
+          animation: spin-slow 25s linear infinite;
         }
         
-        /* Custom scrollbar */
         ::-webkit-scrollbar {
-          width: 6px;
+          width: 8px;
         }
         
         ::-webkit-scrollbar-track {
           background: rgba(0, 0, 0, 0.05);
+          border-radius: 4px;
         }
         
         ::-webkit-scrollbar-thumb {
           background: linear-gradient(to bottom, #3b82f6, #8b5cf6);
-          border-radius: 3px;
+          border-radius: 4px;
+          box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
         }
         
-        /* Smooth scrolling */
         html {
           scroll-behavior: smooth;
         }
         
-        /* Enhanced backdrop filter support */
         .backdrop-blur-xl {
-          backdrop-filter: blur(20px);
-          -webkit-backdrop-filter: blur(20px);
+          backdrop-filter: blur(24px);
+          -webkit-backdrop-filter: blur(24px);
         }
         
         .backdrop-blur-sm {
-          backdrop-filter: blur(4px);
-          -webkit-backdrop-filter: blur(4px);
+          backdrop-filter: blur(6px);
+          -webkit-backdrop-filter: blur(6px);
+        }
+
+        /* Enhanced canvas bubble effects */
+        canvas {
+          filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.1));
         }
       `}</style>
     </div>
