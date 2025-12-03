@@ -131,21 +131,23 @@ The project applies **at least three key concepts** from the course:
 
 ```txt
 .
-├── public/                     # Static assets, icons, screenshots
+├── public/                         # Static assets, icons, screenshots
 ├── src/
-│   └── app/
-│       ├── components/         # React components (Chat UI, Swarm UI, etc.)
-│       │   ├── ChatBot.tsx
-│       │   ├── SwarmRoom.tsx
-│       │   ├── JitsiMeetingRoom.tsx
-│       │   ├── expertMatching.tsx
-│       │   └── ...
-│       ├── api/
-│       │   └── support/
-│       │       └── route.ts   # Main API endpoint – multi-agent orchestration
-│       └── page.tsx           # Landing / main page
-├── src/lib/
-│   ├── geminiClient.ts        # Gemini client helper
-│   └── agents.ts              # Definitions for all agents + orchestrator
+│   ├── app/
+│   │   ├── components/             # React components (Chat UI, Swarm UI, etc.)
+│   │   │   ├── ChatBot.tsx
+│   │   │   ├── SwarmRoom.tsx
+│   │   │   ├── JitsiMeetingRoom.tsx
+│   │   │   ├── expertMatching.tsx
+│   │   │   └── ...
+│   │   ├── api/
+│   │   │   └── support/
+│   │   │       └── route.ts        # Main API endpoint – multi-agent orchestration
+│   │   └── page.tsx                # Landing / main page
+│   │
+│   └── lib/
+│       ├── geminiClient.ts         # Gemini client helper
+│       └── agents.ts               # Definitions for all agents + orchestrator
+│
 ├── package.json
-└── README.md                  # You are here
+└── README.md                       # You are here
